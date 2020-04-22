@@ -47,7 +47,7 @@ def profile() :
 def login() :
     if request.method == "GET" :
         if session.get("user_email") :
-            return redirect("user")
+            return render_template("user.html",name=name)
         else :
             return render_template("login.html")
     else :
@@ -62,8 +62,8 @@ def authenticate() :
         if user :
             salt = user.password[:64]
             stored_password = user.password[64:]
-            # pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt.encode('ascii'), 100000)
-            # pwdhash = binascii.hexlify(pwdhash).decode('ascii')
+            pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt.encode('ascii'), 100000)
+            pwdhash = binascii.hexlify(pwdhash).decode('ascii')
             if stored_password == pwdhash :
                 session["user_email"] = user.email
                 flash("Login Succesful !", "info")
@@ -109,6 +109,30 @@ def user() :
 def admin() :
     users = User.query.order_by(User.timestamp.desc()).all()
     return render_template("admin.html", users=users)
+
+@app.route("/bookpage")
+def bookpage(isbn):
+    # Get data about book from database
+        result = db.execute("SELECT isbn, title, author, year FROM books WHERE id = :id",
+        {"id": id})
+
+        # Store isbn, title, author, year (in that order) in book_data
+        for row in result:
+            book_data = dict(row)
+
+        # add book id to book_data
+        book_data['id'] = id
+        # Get all reviews on this book from reviews table
+        result = db.execute("SELECT author, rating, review_text FROM reviews WHERE book_id = :id",
+                            {"id": id})
+
+        # Store all rows in a list of dicts
+        review_rows = []
+
+        for row in result:
+            review_rows.append(dict(row))
+
+        return render_template("book.html", book_data=book_data, review_rows=review_rows)
 
 if __name__ == "__main__" :
     app.run(debug=True)

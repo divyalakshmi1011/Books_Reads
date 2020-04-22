@@ -33,6 +33,17 @@
     <h2>
         <a href="./logout">Logout</a>
     </h2>
+    <div>
+       {% if name %}
+                    <b>Name : </b> {{ name }} <br>
+                {% endif %}
+                {% if email %}
+                    <b>Email ID : </b> {{ email }} <br>
+                {% endif %}
+                {% if gender %}
+                    <b>Gender : </b> {{ gender }}
+                {% endif %}
+    </div>
     <!-- <div class="container">
         <br>
         <table class="table">
