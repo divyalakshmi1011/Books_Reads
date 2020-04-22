@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <title>Form</title>
+</head>
+<h1 style="font-family: calibri;font: 70px">
+    CREDENTIALS
+  </h1>
+<body>
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 15%;">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                {% if name %}
+                <div class="alert alert-success" role="alert" style="text-align: center;">
+                    Registered Sucessfully!
+                    {% endif %}
+                </div>
+                {% if name %}
+                    <b>Name : </b> {{ name }} <br>
+                {% endif %}
+                {% if email %}
+                    <b>Email ID : </b> {{ email }} <br>
+                {% endif %}
+                {% if gender %}
+                    <b>Gender : </b> {{ gender }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

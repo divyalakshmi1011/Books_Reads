@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Books</title>
+    <style>
+        #pop {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for msg in messages %}
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{msg}}</strong>
+    </div>
+
+    <script>
+        $(".alert").alert();
+    </script>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h2>
+        <a href="./logout">Logout</a>
+    </h2>
+    <!-- <div class="container">
+        <br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Year</th>
+                    {% for book in books %}
+                <tr>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.title}}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.year }}</td>
+                </tr>
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+
+    </div> -->
+</body>
+
+</html>
