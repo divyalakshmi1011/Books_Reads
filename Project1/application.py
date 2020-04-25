@@ -110,7 +110,15 @@ def admin() :
     users = User.query.order_by(User.timestamp.desc()).all()
     return render_template("admin.html", users=users)
 
-
+@app.route("/search", methods=["GET"])
+def search() :
+    if request.method == "GET" :
+    
+        if session.get("user_email") :
+            return render_template("search.html")
+        else :
+            flash("Please Login", "info")
+            return redirect("/login")
 
 if __name__ == "__main__" :
     app.run(debug=True)
