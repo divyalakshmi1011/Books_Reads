@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<head>
 	<title>Results</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,23 +33,37 @@
 </head>
 
 <body>
-	{% for b in book %}
+     {% with messages = get_flashed_messages() %} 
+        {% if messages %}
+            {% for msg in messages %}
+
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>{{msg}}</strong> 
+                </div>
+                
+                <script>
+                  $(".alert").alert();
+                </script>
+
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+       {% for book in books %}
         <div class="card border-primary mb-3" style="width: 12rem">
             <div class="card-body">
-                <h2> Title :</h2>
-                {{b.title}}
-                <h2> Author :</h2>
-                	{{b.author}}
-                <h2 > Year :</h2>
-                   {{b.year}}
-                   <h2 > ISBN :</h2>
-                   {{b.isbn}}
+                <h4 class="card-title">{{book.title}}</h4>
+                <!-- <h6 class="card-text">{{book.author}}</h6>
+                <h6 class="card-text">{{book.year}}</h6>
+                <h6 class="card-text">{{book.isbn}}</h6> -->
+            </div>
+            <div class="card-footer">
+                <a href="/book/{{book['isbn']}}" class="card-link">Go to book page</a>
             </div>
         </div>
     {% endfor %}
-    {% for rev in reviews %}
-    {{rev.rating}}
-    {% endfor %}
-    {{message}}
 </body>
 </html>
