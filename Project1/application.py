@@ -5,6 +5,8 @@ from flask_session import Session
 from sqlalchemy.orm import scoped_session, sessionmaker
 from models import *
 from create import app
+from flask.helpers import url_for
+from operator import or_
 
 app.secret_key = "c9e7217407a0c348ffc7a8126cce68aa80d1ec84eb77112af7d88703be24705b"
 # @app.route("/")
@@ -119,6 +121,37 @@ def search() :
         else :
             flash("Please Login", "info")
             return redirect("/login")
+
+@app.route("/results", methods=["GET", "POST"])
+def user() :
+
+    if request.method == "POST" : 
+            
+        if session.get("user_email") :
+            query = request.form.get("search_item")
+            query = "%{}%".format(query)
+            books = Book.query.filter(or_(Book.isbn.ilike(query), Book.title.ilike(query), Book.author.ilike(query), Book.year.like(query)))
+            session["query"] = query
+            try :
+                books[0].isbn
+                return render_template("results.html", books=books)
+            except Exception as exc :
+                flash("No Results Found")
+                return render_template("results.html", books=books)
+        else :
+            flash("Please Login", "info")
+            return redirect(url_for("login"))
+
+    else :
+        if session.get("user_email") :
+            print("GET")
+            query = session.get("query")
+            books = Book.query.filter(or_(Book.isbn.like(query), Book.title.like(query), Book.author.like(query), Book.year.like(query)))
+            return render_template("results.html", books=books)
+        else :
+            flash("Please Login", "info")
+            return redirect(url_for("login"))
+
 
 if __name__ == "__main__" :
     app.run(debug=True)
