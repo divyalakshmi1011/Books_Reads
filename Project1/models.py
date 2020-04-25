@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 class User(db.Model) :
 
-    __tablename__="UserDetails"
+    __tablename__="User"
 
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, primary_key=True)
@@ -40,3 +40,17 @@ class Book(db.Model) :
     def __repr__(self) :
 
         return "ISBN : " + self.isbn + " | Title : " + self.title + " | Author : " + self.author + " | Year : " + self.year
+
+class Review(db.Model):
+    _tablename_ = "Review"
+    username = db.Column(db.String, primary_key=True)
+    isbn = db.Column(db.String, nullable=False, primary_key=True)
+    rating = db.Column(db.String, nullable=False)
+    review = db.Column(db.String, nullable=False)
+    
+    def __init__(self, username, isbn, rating, review) :
+        
+        self.isbn = isbn
+        self.username = username
+        self.rating = rating
+        self.review = review
