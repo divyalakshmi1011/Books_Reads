@@ -47,7 +47,7 @@ def profile() :
 def login() :
     if request.method == "GET" :
         if session.get("user_email") :
-            return redirect("user")
+            return render_template("user.html")
         else :
             return render_template("login.html")
     else :
@@ -62,8 +62,8 @@ def authenticate() :
         if user :
             salt = user.password[:64]
             stored_password = user.password[64:]
-            # pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt.encode('ascii'), 100000)
-            # pwdhash = binascii.hexlify(pwdhash).decode('ascii')
+            pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt.encode('ascii'), 100000)
+            pwdhash = binascii.hexlify(pwdhash).decode('ascii')
             if stored_password == pwdhash :
                 session["user_email"] = user.email
                 flash("Login Succesful !", "info")
@@ -110,5 +110,9 @@ def admin() :
     users = User.query.order_by(User.timestamp.desc()).all()
     return render_template("admin.html", users=users)
 
+
+
 if __name__ == "__main__" :
     app.run(debug=True)
+
+
