@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy.sql.schema import ForeignKey
 
 db = SQLAlchemy()
 
@@ -20,6 +21,20 @@ class User(db.Model) :
         self.password = password
         self.gender = gender
         self.timestamp = datetime.now()
+
+class Review(db.Model):
+    tablename = "Review"
+    email = db.Column(db.String, ForeignKey("UserDetails.email"), primary_key=True)
+    isbn = db.Column(db.String, ForeignKey("books.isbn"), nullable=False, primary_key=True)
+    rating = db.Column(db.String, nullable=False)
+    review = db.Column(db.String, nullable=False)
+    
+    def _init_(self, username, isbn, rating, review) :
+        
+        self.isbn = isbn
+        self.username = username
+        self.rating = rating
+        self.review = review
 
 class Book(db.Model) :
 
