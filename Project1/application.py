@@ -6,7 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from models import *
 from create import app
 from datetime import timedelta
-from sqlalchemy import or_
+from sqlalchemy import or_,and_
 
 app.secret_key = "1c488f4b4a21cd7fbc5007664656985c2459b2362cf1f88d44b97e750b0c14b2cf7bc7b792d3f45db"
 app.permanent_session_lifetime = timedelta(minutes=30)
@@ -157,14 +157,15 @@ def book(isbn):
     query = isbn
     book = Book.query.filter_by(isbn=query)
     review = Review.query.filter_by(isbn=query)
+    # review_data = Review.query.filter(and_(Review.isbn == isbn ,Review.email == session["user_email"])).first()
     # if not review :
     #     return render_template("review.html")
     # else:
     #     return render_template("book.html", book=book,reviews=review)
     if not review:
-        return render_template("book.html", book=book,message="No Review")
+        return render_template("book.html",book=book,message="NO review given on this book")
     else:
-        return render_template("book.html", book=book,reviews=review)
+        return render_template("book.html", book=book,reviews=review, message= "")
  
 
 @app.route("/search", methods=["GET"])
@@ -185,6 +186,47 @@ def admin() :
     else :
         flash("Please Login First", "info")
         return redirect("/login")
+
+@app.route("/review/<isbn>")
+def review(isbn):
+    isbn = isbn
+    print(isbn)
+    email = session["user_email"]
+    book = Book.query.filter_by(isbn=isbn)
+    review = Review.query.filter_by(isbn=isbn)
+    review_data = Review.query.filter(and_(Review.isbn == isbn, Review.email == email)).first()
+    print(review_data)
+    if not review_data:
+        return render_template("review.html", isbn=isbn)
+    else:
+        return render_template("book.html",book=book,reviews=review, message= "You have already submitted the review for this Book")
+
+    
+
+@app.route("/rev", methods=["GET", "POST"])
+def rev():
+    if request.method == "POST":
+        
+        user = session["user_email"]
+        print(user)
+        book_id = (request.form.get("isbn"))
+        print(book_id)
+        rating = int(request.form.get("star"))
+        print(rating)
+        review = request.form.get("review")
+        print(review)
+        rev = Review(email=user, isbn=book_id, rating=rating, review=review)
+        db.session.add(rev)
+        db.session.commit()
+        # return render_template("book.html",)
+        # book = Book.query.filter_by(isbn=book_id)
+        # review = Review.query.filter_by(isbn=query)
+        return redirect(url_for('book', isbn= book_id))
+    else:
+        # flash("already submitted the review")
+        return flash("illegal access ")
+        
+
 
 if __name__ == "__main__" :
     app.run(debug=True)

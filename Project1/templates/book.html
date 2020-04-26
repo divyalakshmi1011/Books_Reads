@@ -31,7 +31,8 @@
             }
 
             body {
-                background-image: url("https://img.freepik.com/free-photo/rows-books-library_73152-2680.jpg?size=626&ext=jpg");
+                background-image: url("http://www.openbookpublishers.com/shopimages/sections/normal/Open-Bookpic.jpg");
+                background-size: cover;
             }
         </style>
     </head>
@@ -54,7 +55,15 @@
     {% for rev in reviews %}
     {{rev.rating}}
     {% endfor %}
-    {{message}}
+    <h3 style="color:red ;text-align:center">{{message}} </h3>
+    <div>
+        {% for b in book %}
+        <h3>Please submit the review if not submitted</h3>
+        <form action="/review/{{b.isbn}}">
+            <button type="submit" class="review" value="review">review</button>
+        </form>
+        {% endfor %}
+    </div>
 </body>
 
 </html>
