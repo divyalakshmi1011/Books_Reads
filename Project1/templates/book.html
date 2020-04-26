@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <head>
+        <title>Results</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+        <title>Search</title>
+        <style>
+            .input-group-prepend {
+                width: 100%;
+                font-size: medium;
+            }
+
+            .searchform label {
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                font-size: large;
+                padding-top: 0;
+                padding-left: 8px;
+            }
+
+            #pop {
+                text-align: center;
+            }
+
+            body {
+                background-image: url("https://img.freepik.com/free-photo/rows-books-library_73152-2680.jpg?size=626&ext=jpg");
+            }
+        </style>
+    </head>
+
+<body>
+    {% for b in book %}
+    <div class="card border-primary mb-3" style="width: 12rem">
+        <div class="card-body">
+            <h2> Title :</h2>
+            {{b.title}}
+            <h2> Author :</h2>
+            {{b.author}}
+            <h2> Year :</h2>
+            {{b.year}}
+            <h2> ISBN :</h2>
+            {{b.isbn}}
+        </div>
+    </div>
+    {% endfor %}
+    {% for rev in reviews %}
+    {{rev.rating}}
+    {% endfor %}
+    {{message}}
+</body>
+
+</html>
