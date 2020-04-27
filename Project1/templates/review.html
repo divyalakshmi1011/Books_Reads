@@ -48,8 +48,7 @@
         }
 
         body {
-            background-image: url("https://media.istockphoto.com/photos/open-book-picture-id160389096?k=6&m=160389096&s=612x612&w=0&h=N7rIxQPZSa_NSMSr9E491ECQVapL0HHGrYh3agGBwbw=");
-            background-blend-mode: soft-light;
+            background-image: url("https://image.shutterstock.com/image-photo/book-stack-on-wood-desk-260nw-632910416.jpg");
             background-size: cover;
         }
     </style>
@@ -65,8 +64,8 @@
                 <textarea class="textarea" name="review" placeholder="Add a comment..."></textarea>
             </p>
         </div>
-        <p>{{isbn}}</p>
-        <input type="text" value="{{isbn}}" name="isbn">
+        <!-- <p>{{isbn}}</p> -->
+        <input type="hidden" value="{{isbn}}" name="isbn">
         <div class="field is-grouped">
             <div class="control">
                 <div class="stars">
