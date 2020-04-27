@@ -8,6 +8,9 @@
         #pop {
             text-align: center;
         }
+        body {
+                background-image: url("https://img.freepik.com/free-photo/rows-books-library_73152-2680.jpg?size=626&ext=jpg");
+            } 
     </style>
 </head>
 
@@ -33,6 +36,17 @@
     <h2>
         <a href="./logout">Logout</a>
     </h2>
+    <div>
+       {% if name %}
+                    <b>Name : </b> {{ name }} <br>
+                {% endif %}
+                {% if email %}
+                    <b>Email ID : </b> {{ email }} <br>
+                {% endif %}
+                {% if gender %}
+                    <b>Gender : </b> {{ gender }}
+                {% endif %}
+    </div>
     <!-- <div class="container">
         <br>
         <table class="table">
