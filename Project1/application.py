@@ -8,6 +8,7 @@ from create import app
 from datetime import timedelta
 from sqlalchemy import or_,and_
 
+
 app.secret_key = "1c488f4b4a21cd7fbc5007664656985c2459b2362cf1f88d44b97e750b0c14b2cf7bc7b792d3f45db"
 app.permanent_session_lifetime = timedelta(minutes=30)
 
@@ -157,16 +158,17 @@ def book(isbn):
     query = isbn
     book = Book.query.filter_by(isbn=query)
     review = Review.query.filter_by(isbn=query)
-    # review_data = Review.query.filter(and_(Review.isbn == isbn ,Review.email == session["user_email"])).first()
+
     # if not review :
     #     return render_template("review.html")
     # else:
     #     return render_template("book.html", book=book,reviews=review)
     if not review:
+
         return render_template("book.html",book=book,message="NO review given on this book")
     else:
         return render_template("book.html", book=book,reviews=review, message= "")
- 
+
 
 @app.route("/search", methods=["GET"])
 def search() :
@@ -186,6 +188,7 @@ def admin() :
     else :
         flash("Please Login First", "info")
         return redirect("/login")
+
 
 @app.route("/review/<isbn>")
 def review(isbn):

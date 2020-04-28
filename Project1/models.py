@@ -5,6 +5,7 @@ from sqlalchemy import ForeignKey
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
     __tablename__="UserDetails"
 
@@ -44,6 +45,7 @@ class Book(db.Model) :
 
 class Review(db.Model):
     _tablename_ = "Review"
+
     email = db.Column(db.String, ForeignKey("UserDetails.email"), primary_key=True)
     isbn = db.Column(db.String, ForeignKey("books.isbn"), nullable=False, primary_key=True)
     rating = db.Column(db.String, nullable=False)
@@ -55,3 +57,4 @@ class Review(db.Model):
         self.email = email
         self.rating = rating
         self.review = review
+

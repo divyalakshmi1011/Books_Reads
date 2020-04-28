@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>Results</title>
+	<title>Results</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <title>Search</title>
     <style>
+
         .input-group-prepend {
             width: 100%;
             font-size: medium;
@@ -23,6 +25,7 @@
             padding-left: 8px;
         }
 
+
         #pop {
             text-align: center;
         }
@@ -31,42 +34,43 @@
             background-image: url("https://image.shutterstock.com/image-photo/book-stack-on-wood-desk-260nw-632910416.jpg");
             background-size: cover;
         }
+
     </style>
 </head>
 
 <body>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for msg in messages %}
 
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <strong>{{msg}}</strong>
-    </div>
+     {% with messages = get_flashed_messages() %} 
+        {% if messages %}
+            {% for msg in messages %}
 
-    <script>
-        $(".alert").alert();
-    </script>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>{{msg}}</strong> 
+                </div>
+                
+                <script>
+                  $(".alert").alert();
+                </script>
 
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
 
-    {% for book in books %}
-    <div class="card border-primary mb-3" style="width: 12rem">
-        <div class="card-body">
-            <h4 class="card-title">{{book.title}}</h4>
-            <!-- <h6 class="card-text">{{book.author}}</h6>
+       {% for book in books %}
+        <div class="card border-primary mb-3" style="width: 12rem">
+            <div class="card-body">
+                <h4 class="card-title">{{book.title}}</h4>
+                <!-- <h6 class="card-text">{{book.author}}</h6>
                 <h6 class="card-text">{{book.year}}</h6>
                 <h6 class="card-text">{{book.isbn}}</h6> -->
+            </div>
+            <div class="card-footer">
+                <a href="/book/{{book['isbn']}}" class="card-link">Go to book page</a>
+            </div>
         </div>
-        <div class="card-footer">
-            <a href="/book/{{book['isbn']}}" class="card-link">Go to book page</a>
-        </div>
-    </div>
     {% endfor %}
 </body>
-
 </html>

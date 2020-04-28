@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
     <title>Results</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <title>Search</title>
     <style>
+
         .input-group-prepend {
             width: 100%;
             font-size: medium;
@@ -23,6 +26,7 @@
             padding-left: 8px;
         }
 
+
         #pop {
             text-align: center;
         }
@@ -31,10 +35,12 @@
             background-image: url("https://image.shutterstock.com/image-photo/book-stack-on-wood-desk-260nw-632910416.jpg");
             background-size: cover;
         }
+
     </style>
 </head>
 
 <body>
+
     {% for b in book %}
     <div class="card border-primary mb-3" style="width: 12rem">
         <div class="card-body">
@@ -48,10 +54,12 @@
             {{b.isbn}}
         </div>
     </div>
+
     {% endfor %}
     {% for rev in reviews %}
     {{rev.rating}}
     {% endfor %}
+
     <h3 style="color:red ;text-align:center">{{message}} </h3>
     <div>
         {% for b in book %}
@@ -62,5 +70,6 @@
         {% endfor %}
     </div>
 </body>
+
 
 </html>
