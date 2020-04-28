@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <title>Search</title>
     <style>
-
         .input-group-prepend {
             width: 100%;
             font-size: medium;
@@ -23,7 +22,9 @@
             padding-top: 0;
             padding-left: 8px;
         }
+
     
+
         #pop {
             text-align: center;
         }
@@ -33,6 +34,7 @@
     </style>
 </head>
 
+<
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
         <a class="navbar-brand" href="/">Book Reviews</a>
@@ -55,26 +57,27 @@
         </div>
     </nav>
 </header>
+>
 </head>
 
 <body>
-    {% with messages = get_flashed_messages() %} 
-        {% if messages %}
-            {% for msg in messages %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for msg in messages %}
 
-                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <strong>{{msg}}</strong> 
-                </div>
-                
-                <script>
-                  $(".alert").alert();
-                </script>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{msg}}</strong>
+    </div>
 
-            {% endfor %}
-        {% endif %}
+    <script>
+        $(".alert").alert();
+    </script>
+
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     <h1 style="text-align: center;font: 40px;font-family: calibri">
         SignUp
@@ -97,8 +100,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"
                                     aria-hidden="true"></i></span>
-                            <input align = "center" type="email" class="form-control" name="emailID" placeholder="Email" maxlength="50"
-                                required><br>
+                            <input align="center" type="email" class="form-control" name="emailID" placeholder="Email"
+                                maxlength="50" required><br>
                         </div>
                     </div>
                     <label for="pwd">Password</label><br>
@@ -106,7 +109,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"
                                     aria-hidden="true"></i></i></span>
-                            <input align = "center" type="password" name="pwd" placeholder="Password" class="form-control"
+                            <input align="center" type="password" name="pwd" placeholder="Password" class="form-control"
                                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,16}$"
                                 title="Password length should be in between 8 and 16 and it should include atleast one lowercase letter, one upper case letter, one digit and a special character"
                                 required><br>
@@ -117,7 +120,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"
                                     aria-hidden="true"></i></span>
-                            <input align = "center" type="password" id="ucpwd" name="cpwd" placeholder="Password"
+                            <input align="center" type="password" id="ucpwd" name="cpwd" placeholder="Password"
                                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,16}$" class="form-control"
                                 title="Password length should be in between 8 and 16 and it should include atleast one lowercase letter, one upper case letter, one digit and a special character"
                                 required><br>
@@ -136,7 +139,8 @@
                         <label>Other</label></input>
                     </div>
                     <div>
-                        <button class = "buttton" type="submit" class="btn btn-primary" style="width: 150px; margin-top: 15px;">Sign Up</button>
+                        <button class="buttton" type="submit" class="btn btn-primary"
+                            style="width: 150px; margin-top: 15px;">Sign Up</button>
                     </div>
                 </form>
             </div>

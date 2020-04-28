@@ -1,11 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy import ForeignKey
+
 
 db = SQLAlchemy()
 
-class User(db.Model) :
 
-    __tablename__="User"
+class User(db.Model):
+    __tablename__="UserDetails"
 
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, primary_key=True)
@@ -43,14 +45,16 @@ class Book(db.Model) :
 
 class Review(db.Model):
     _tablename_ = "Review"
-    username = db.Column(db.String, primary_key=True)
-    isbn = db.Column(db.String, nullable=False, primary_key=True)
+
+    email = db.Column(db.String, ForeignKey("UserDetails.email"), primary_key=True)
+    isbn = db.Column(db.String, ForeignKey("books.isbn"), nullable=False, primary_key=True)
     rating = db.Column(db.String, nullable=False)
     review = db.Column(db.String, nullable=False)
     
-    def __init__(self, username, isbn, rating, review) :
+    def __init__(self, email, isbn, rating, review) :
         
         self.isbn = isbn
-        self.username = username
+        self.email = email
         self.rating = rating
         self.review = review
+
