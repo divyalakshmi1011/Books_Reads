@@ -63,6 +63,35 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.app.post('/register', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
+    
+    def test_review(self):
+        review_data = Review.query.filter(and_(Review.isbn == "0441017835", Review.email == "moksh@gmail.com")).first()
+        print(review_data)
+        if (review_data== None):
+            flag= False
+        else: flag= True
+        self.assertTrue(flag)
+        
+
+    
+    def test_search(self):
+        books_result = Book.query.filter(or_(Book.isbn.ilike('Mein kampf'), Book.title.ilike('Mein kampf'), Book.author.ilike('Mein kampf')))
+        # books_result = getbooks('Mein kampf')
+        print(books_result)
+        if not books_result:
+            flag = False
+        else: flag = True 
+        print(flag)
+        self.assertTrue(flag)
+    
+    def test_bookpage(self):
+        book1 = Book.query.filter(Book.isbn == "074349671X").all()
+        for item in book1:
+            if (item.title == "The Tenth Circle"):
+                flag = True
+            else: flag = False
+            self.assertTrue(flag)
+      
 
  
  
