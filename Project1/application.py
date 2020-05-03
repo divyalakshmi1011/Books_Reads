@@ -212,46 +212,6 @@ def searchAPI() :
     except Exception :
         return jsonify({"error" : "Server Error"}), 500
 
-@app.route("/api/book", methods=["POST"])
-def bookAPI() :
-    try:
-        if (not request.is_json) :
-            return jsonify({"error" : "not a json request"}), 400
-        reqData = request.get_json()
-        print (reqData,"my book")
-        if "isbn" not in reqData:
-            return jsonify({"error" : "missing isbn param"}), 400
-        if "email" not in reqData:
-            return jsonify({"error" : "missing email"}), 400
-        isbn = reqData.get("isbn")
-        print (len(isbn))
-        if len(isbn)!=10 :
-            remain=10-len(isbn)
-            zeros="0"*remain
-            isbn=zeros+isbn
-        book = Book.query.get(isbn)
-        print (book,"query book")
-        if book is None :
-            return jsonify({"error" : "invalid isbn"})
-        email = reqData.get("email")
-        validEmail = User.query.get(email)
-        if validEmail is None :
-            return jsonify({"error" : "not a registered email"})
-        book_details = {"isbn" : book.isbn, "title" : book.title, "author" : book.author, "year" : book.year}
-        print ("isbn" , book.isbn, "title" , book.title, "author" , book.author, "year" , book.year)
-        reviews = Review.query.filter_by(isbn=str(isbn));
-        reviewlist = []
-        for review in reviews:
-            temp1={}
-            temp1["isbn"] = review.isbn
-            temp1["emailid"] = review.username
-            temp1["rating"] = review.rating
-            temp1["review"] = review.review
-            reviewlist.append(temp1)
-        return jsonify({"book": book_details ,"reviews":reviewlist}),200
-    except Exception as exe:
-        print (exe)
-        return jsonify({"error": "Server Error"}),500
 
 @app.route("/admin")
 def admin() :
@@ -265,4 +225,3 @@ def admin() :
 if __name__ == "__main__" :
     app.run(debug=True)
 
-    
