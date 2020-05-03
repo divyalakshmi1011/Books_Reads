@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
+
 <head>
-	<head>
-	<title>Results</title>
+    <title>Results</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -23,36 +25,51 @@
             padding-top: 0;
             padding-left: 8px;
         }
-    
+
+
         #pop {
             text-align: center;
         }
-        /* body {
-                background-image: url("https://img.freepik.com/free-photo/rows-books-library_73152-2680.jpg?size=626&ext=jpg");
-            }  */
+
+        body {
+            background-image: url("https://image.shutterstock.com/image-photo/book-stack-on-wood-desk-260nw-632910416.jpg");
+            background-size: cover;
+        }
+
     </style>
 </head>
 
 <body>
-	{% for b in book %}
-        <div class="card border-primary mb-3" style="width: 12rem">
-            <div class="card-body">
-                <h2> Title :</h2>
-                {{b.title}}
-                <h2> Author :</h2>
-                	{{b.author}}
-                <h2 > Year :</h2>
-                   {{b.year}}
-                   <h2 > ISBN :</h2>
-                   {{b.isbn}}
-            </div>
+
+    {% for b in book %}
+    <div class="card border-primary mb-3" style="width: 12rem">
+        <div class="card-body">
+            <h2> Title :</h2>
+            {{b.title}}
+            <h2> Author :</h2>
+            {{b.author}}
+            <h2> Year :</h2>
+            {{b.year}}
+            <h2> ISBN :</h2>
+            {{b.isbn}}
         </div>
+    </div>
+
     {% endfor %}
     {% for rev in reviews %}
     {{rev.rating}}
     {% endfor %}
-    {{message}}
+
+    <h3 style="color:red ;text-align:center">{{message}} </h3>
+    <div>
+        {% for b in book %}
+        <h3>Please submit the review if not submitted</h3>
+        <form action="/review/{{b.isbn}}">
+            <button type="submit" class="review" value="review">review</button>
+        </form>
+        {% endfor %}
+    </div>
 </body>
+
+
 </html>
-
-

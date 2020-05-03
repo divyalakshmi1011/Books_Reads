@@ -1,11 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+<<<<<<< HEAD
 from sqlalchemy.sql.schema import ForeignKey
+||||||| 2c6a4a0
+=======
+from sqlalchemy import ForeignKey
+
+>>>>>>> master
 
 db = SQLAlchemy()
 
-class User(db.Model) :
 
+class User(db.Model):
     __tablename__="UserDetails"
 
     name = db.Column(db.String, nullable=False)
@@ -55,3 +61,19 @@ class Book(db.Model) :
     def __repr__(self) :
 
         return "ISBN : " + self.isbn + " | Title : " + self.title + " | Author : " + self.author + " | Year : " + self.year
+
+class Review(db.Model):
+    _tablename_ = "Review"
+
+    email = db.Column(db.String, ForeignKey("UserDetails.email"), primary_key=True)
+    isbn = db.Column(db.String, ForeignKey("books.isbn"), nullable=False, primary_key=True)
+    rating = db.Column(db.String, nullable=False)
+    review = db.Column(db.String, nullable=False)
+    
+    def __init__(self, email, isbn, rating, review) :
+        
+        self.isbn = isbn
+        self.email = email
+        self.rating = rating
+        self.review = review
+

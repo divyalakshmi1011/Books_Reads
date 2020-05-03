@@ -140,6 +140,7 @@ def user() :
             return redirect(url_for("login"))
 
     else :
+<<<<<<< HEAD
         if session.get("user_email") :
             print("GET")
             query = session.get("query")
@@ -160,9 +161,63 @@ def search() :
             flash("Please Login", "info")
             return redirect("/login")
 
+||||||| 2c6a4a0
+        flash("You are not logged in!")
+        return redirect("login")
+=======
+        if session.get("user_email") :
+            print("GET")
+            query = session.get("query")
+            books = Book.query.filter(or_(Book.isbn.like(query), Book.title.like(query), Book.author.like(query), Book.year.like(query)))
+            return render_template("results.html", books=books)
+        else :
+            flash("Please Login", "info")
+            return redirect(url_for("login"))
+
+
+@app.route("/book/<isbn>", methods=['GET','POST'])
+def book(isbn):
+
+    """ Save user review and load same page with reviews updated."""
+    query = isbn
+    book = Book.query.filter_by(isbn=query)
+    review = Review.query.filter_by(isbn=query)
+
+    # if not review :
+    #     return render_template("review.html")
+    # else:
+    #     return render_template("book.html", book=book,reviews=review)
+    if not review:
+
+        return render_template("book.html",book=book,message="NO review given on this book")
+    else:
+        return render_template("book.html", book=book,reviews=review, message= "")
+
+
+@app.route("/search", methods=["GET"])
+def search() :
+    if request.method == "GET" :
+    
+        if session.get("user_email") :
+            return render_template("search.html")
+        else :
+            flash("Please Login", "info")
+            return redirect("/login")
+>>>>>>> master
 
 @app.route("/admin")
 def admin() :
+<<<<<<< HEAD
+    if session.get("user_email") :
+        users = User.query.order_by(User.timestamp.desc()).all()
+        return render_template("admin.html", users=users)
+    else :
+        flash("Please Login First", "info")
+        return redirect("/login")
+||||||| 2c6a4a0
+    users = User.query.order_by(User.timestamp.desc()).all()
+    return render_template("admin.html", users=users)
+=======
     if session.get("user_email") :
         users = User.query.order_by(User.timestamp.desc()).all()
         return render_template("admin.html", users=users)
@@ -170,9 +225,57 @@ def admin() :
         flash("Please Login First", "info")
         return redirect("/login")
 
+
+@app.route("/review/<isbn>")
+def review(isbn):
+    isbn = isbn
+    print(isbn)
+    email = session["user_email"]
+    book = Book.query.filter_by(isbn=isbn)
+    review = Review.query.filter_by(isbn=isbn)
+    review_data = Review.query.filter(and_(Review.isbn == isbn, Review.email == email)).first()
+    print(review_data)
+    if not review_data:
+        return render_template("review.html", isbn=isbn)
+    else:
+        return render_template("book.html",book=book,reviews=review, message= "You have already submitted the review for this Book")
+
+    
+
+@app.route("/rev", methods=["GET", "POST"])
+def rev():
+    if request.method == "POST":
+        
+        user = session["user_email"]
+        print(user)
+        book_id = (request.form.get("isbn"))
+        print(book_id)
+        rating = int(request.form.get("star"))
+        print(rating)
+        review = request.form.get("review")
+        print(review)
+        rev = Review(email=user, isbn=book_id, rating=rating, review=review)
+        db.session.add(rev)
+        db.session.commit()
+        # return render_template("book.html",)
+        # book = Book.query.filter_by(isbn=book_id)
+        # review = Review.query.filter_by(isbn=query)
+        return redirect(url_for('book', isbn= book_id))
+    else:
+        # flash("already submitted the review")
+        return flash("illegal access ")
+        
+
+>>>>>>> master
+
 if __name__ == "__main__" :
     app.run(debug=True)
+<<<<<<< HEAD
 
 
 
 
+||||||| 2c6a4a0
+=======
+    
+>>>>>>> master

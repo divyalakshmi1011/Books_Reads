@@ -8,6 +8,12 @@
         #pop {
             text-align: center;
         }
+
+        body {
+            background-image: url("https://image.shutterstock.com/image-photo/book-stack-on-wood-desk-260nw-632910416.jpg");
+            background-size: cover;
+        }
+
     </style>
 </head>
 
@@ -33,6 +39,17 @@
     <h2>
         <a href="./logout">Logout</a>
     </h2>
+    <div>
+       {% if name %}
+                    <b>Name : </b> {{ name }} <br>
+                {% endif %}
+                {% if email %}
+                    <b>Email ID : </b> {{ email }} <br>
+                {% endif %}
+                {% if gender %}
+                    <b>Gender : </b> {{ gender }}
+                {% endif %}
+    </div>
     <!-- <div class="container">
         <br>
         <table class="table">

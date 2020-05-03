@@ -22,13 +22,17 @@
             padding-top: 0;
             padding-left: 8px;
         }
-    
+
+
         #pop {
             text-align: center;
         }
-       /* body {
-                background-image: url("https://img.freepik.com/free-photo/rows-books-library_73152-2680.jpg?size=626&ext=jpg");
-            }  */
+
+        body {
+            background-image: url("https://image.shutterstock.com/image-photo/book-stack-on-wood-desk-260nw-632910416.jpg");
+            background-size: cover;
+        }
+
     </style>
 </head>
 
@@ -55,6 +59,7 @@
     </nav>
 </header>
 
+
 <body> 
 
     {% with messages = get_flashed_messages() %} 
@@ -74,6 +79,7 @@
 
             {% endfor %}
         {% endif %}
+
     {% endwith %}
 
     <div class="container">
@@ -83,8 +89,10 @@
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
                 <legend style="text-align: center;">Search Book</legend>
+
                 <p>Search for your favourite book either by it's isbn or title or by author name or by it's published year</p>
              
+
                 <form action="/results" class="searchform" method="POST">
 
                     <div class="input-group mb-3">
@@ -92,6 +100,7 @@
                         <div class="input-group-prepend">
                             <input type="search" placeholder="" name="search_item" class="form-control"
                                 aria-label="search_item" aria-describedby="basic-addon1" required>
+
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
                         </div>
 
@@ -107,6 +116,7 @@
 
         </div>
 
+
     </div>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
@@ -114,7 +124,3 @@
 </body>
 
 </html>
-
-
-
-

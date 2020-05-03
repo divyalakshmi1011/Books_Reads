@@ -2,94 +2,82 @@
 <html lang="en">
 
 <head>
-    <title>Register</title>
-
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+    <title>Search</title>
     <style>
-
         .input-group-prepend {
             width: 100%;
-            padding-left: 10px;
             font-size: medium;
         }
 
-        .registrationForm label {
+        .searchform label {
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             font-size: large;
             padding-top: 0;
             padding-left: 8px;
         }
 
-        #gen {
-            padding: 0;
-            margin-top: 0;
-        }
-
-        input[type='radio'] {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 1px solid black;
-            border-radius: 50%;
-            outline: none;
-            background-color: white;
-            margin: 10px 10px 0 12px;
-        }
-
-        input[type='radio']:hover {
-            border: 3px solid black;
-        }
-
-        input[type='radio']:before {
-            content: '';
-            display: block;
-            width: 60%;
-            height: 60%;
-            margin: 20% auto;
-            border-radius: 50%;
-        }
-
-        input[type='radio']:checked:before {
-            background: black;
-            align-items: center;
-        }
-
-        input[type="text"], input[type="password"], input[type="email"], input[type="date"] {
-            border: 1px solid grey;
-            align-items: center;
-            width: 50%;
-            padding: 12px 20px;
-            margin: 8px 10px;
-            box-sizing: border-box;
-        }
+    
 
         #pop {
             text-align: center;
         }
+        body {
+                background-image: url("https://img.freepik.com/free-photo/rows-books-library_73152-2680.jpg?size=626&ext=jpg");
+            } 
+    </style>
+</head>
 
-</style>
-   <h1 style="font-family: calibri;font: 70px">
-    CREDENTIALS
-  </h1>
+<
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="/">Book Reviews</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+>
 </head>
 
 <body>
-    {% with messages = get_flashed_messages() %} 
-        {% if messages %}
-            {% for msg in messages %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for msg in messages %}
 
-                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <strong>{{msg}}</strong> 
-                </div>
-                
-                <script>
-                  $(".alert").alert();
-                </script>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="pop">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{msg}}</strong>
+    </div>
 
-            {% endfor %}
-        {% endif %}
+    <script>
+        $(".alert").alert();
+    </script>
+
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     <h1 style="text-align: center;font: 40px;font-family: calibri">
         SignUp
@@ -112,8 +100,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"
                                     aria-hidden="true"></i></span>
-                            <input align = "center" type="email" class="form-control" name="emailID" placeholder="Email" maxlength="50"
-                                required><br>
+                            <input align="center" type="email" class="form-control" name="emailID" placeholder="Email"
+                                maxlength="50" required><br>
                         </div>
                     </div>
                     <label for="pwd">Password</label><br>
@@ -121,7 +109,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"
                                     aria-hidden="true"></i></i></span>
-                            <input align = "center" type="password" name="pwd" placeholder="Password" class="form-control"
+                            <input align="center" type="password" name="pwd" placeholder="Password" class="form-control"
                                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,16}$"
                                 title="Password length should be in between 8 and 16 and it should include atleast one lowercase letter, one upper case letter, one digit and a special character"
                                 required><br>
@@ -132,7 +120,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-key"
                                     aria-hidden="true"></i></span>
-                            <input align = "center" type="password" id="ucpwd" name="cpwd" placeholder="Password"
+                            <input align="center" type="password" id="ucpwd" name="cpwd" placeholder="Password"
                                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,16}$" class="form-control"
                                 title="Password length should be in between 8 and 16 and it should include atleast one lowercase letter, one upper case letter, one digit and a special character"
                                 required><br>
@@ -151,7 +139,8 @@
                         <label>Other</label></input>
                     </div>
                     <div>
-                        <button class = "buttton" type="submit" class="btn btn-primary" style="width: 150px; margin-top: 15px;">Sign Up</button>
+                        <button class="buttton" type="submit" class="btn btn-primary"
+                            style="width: 150px; margin-top: 15px;">Sign Up</button>
                     </div>
                 </form>
             </div>
